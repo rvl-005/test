@@ -8,7 +8,7 @@ char inputString[];
 
 void addString() {
     // Prompts user for input
-    printf("Enter your first name: \n");
+    printf("Enter something!: \n");
     // processes input
     scanf("%s", inputString);
 }
