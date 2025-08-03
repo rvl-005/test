@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/jeopp/Downloads/Programs/C Test",
-      "program": "c:/Users/jeopp/Downloads/Programs/C Test/build/Debug/outDebug",
+      "cwd": "c:/Users/jeopp/OneDrive/Documents/GitHub/test/src",
+      "program": "c:/Users/jeopp/OneDrive/Documents/GitHub/test/src/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

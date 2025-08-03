@@ -1,3 +1,4 @@
 bin/
 .gitignore
 output.txt
+/.vscode
