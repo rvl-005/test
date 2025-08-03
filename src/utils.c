@@ -10,11 +10,11 @@ void createFile(const char *inputString) {
         printf("Memory allocation failed!\n");
         return;
     }
-    fptr = fopen("output.txt", "w");
+    fptr = fopen("page.txt", "w");
     if (fptr == NULL) {
         handleError("Error opening file");
         return;
-    }
+    } else printf("Page creation complete!\n");
     fprintf(fptr, "%s\n", input);
     free(input);
     fclose(fptr);
@@ -28,9 +28,9 @@ void appendToFile(const char *inputString) {
     }
     fptr = fopen("output.txt", "a");
     if (fptr == NULL) {
-        handleError("Error opening file for appending");
+        handleError("Error opening file for appending\n");
         return;
-    }
+    } else printf("Successfully wrote to page!\n");
     fprintf(fptr, "%s\n", input);
     free(input);
     fclose(fptr);
@@ -39,6 +39,6 @@ void appendToFile(const char *inputString) {
 void readFile(const char *filename) {
     fptr = fopen(filename, "r");
     if (fptr == NULL) {
-        handleError("Error opening file for reading");
-    }
+        handleError("Error opening file for reading\n");
+    } else printf("Successfully read page!\n");
 }
