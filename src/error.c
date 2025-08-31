@@ -13,5 +13,8 @@ void handleError(const char *message) {
         case EINVAL:
             printf("Error: %s - Invalid argument.\n", message);
             break;
+        default:
+            printf("Error: %s - Unknown error (errno %d).\n", message, errno);
+            break;
     }
 }

@@ -59,6 +59,8 @@
   "files.associations": {
     "*.dbclient-js": "javascript",
     "*.embeddedhtml": "html",
-    "stdlib.h": "c"
+    "*.as": "actionscript",
+    "stdlib.h": "c",
+    "string.h": "c"
   }
 }

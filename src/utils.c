@@ -1,46 +1,46 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "error.h"
 
-FILE *fptr;
-char *input;
-
-
-void createFile(const char *inputString) {
-    char *input = malloc(100 * sizeof(char));
-    if (input == NULL) {
-        printf("Memory allocation failed!\n");
+void createFile(const char *filename) {
+    FILE *fptr = fopen(filename, "w");
+    if (fptr == NULL) {
+        handleError("Error opening file.\n");
         return;
     }
-    fptr = fopen("page.txt", "w");
-    if (fptr == NULL) {
-        handleError("Error opening file");
-        return;
-    } else printf("Page creation complete!\n");
-    printf("Please write something: \n");
-    fprintf(fptr, "%s\n", input);
-    free(input);
+    printf("Page creation complete!\n");
     fclose(fptr);
 }
 
-void appendToFile(const char *inputString) {
-    if (input == NULL) {
-        printf("Memory allocation failed!\n");
-        return;
-    }
-    fptr = fopen("page.txt", "a");
+void appendToFile(const char *filename) {
+    FILE *fptr = fopen(filename, "a");
+    char inputString[1000];
+    
     if (fptr == NULL) {
-        handleError("Error opening file for appending\n");
+        handleError("Error opening file for appending.\n");
         return;
-    } else printf("Successfully wrote to page!\n");
-    fprintf(fptr, "%s\n", input);
-    free(input);
-    fclose(fptr);
+    } else {
+        printf("Please write something: \n");
+        fgets(inputString, sizeof(inputString), stdin);
+        inputString[strcspn(inputString, "\n")] = '\0';
+        fprintf(fptr, "%s\n", inputString);
+        printf("Successfully wrote to page!\n");
+        fclose(fptr);
+    }
 }
 
 void readFile(const char *filename) {
-    fptr = fopen(filename, "r");
+    FILE *fptr = fopen(filename, "r");
+    char inputString[1000];
+
     if (fptr == NULL) {
-        handleError("Error opening file for reading\n");
-    } else printf("Successfully read page!\n");
+        handleError("Error opening file for reading.\n");
+    } else {
+        while(fgets(inputString, sizeof(inputString), fptr)) {
+            printf("%s", inputString);
+        }
+        printf("Successfully read page!\n");
+        fclose(fptr);
+    }
 }
