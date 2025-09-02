@@ -7,4 +7,5 @@ typedef enum {
     READ
 } MODE;
 int menu();
+int pauseScreen();
 #endif

@@ -6,7 +6,6 @@
 MODE mode = MENU;
 
 int menu() {
-    MODE mode = MENU;
     bool isRunning = true;
     printf("WELCOME TO DIARY!\n");
     do {
@@ -37,6 +36,7 @@ int menu() {
                 break;
             case 4:
                 printf("Exiting the program.\n");
+                isRunning = false;
                 return 0;
             default:
                 mode = MENU;
@@ -44,4 +44,39 @@ int menu() {
                 break;
         }
     } while (isRunning);
+}
+
+int pauseScreen(char *filename) {
+    printf("Do you want to \n 1. return to the menu? \n 2. go back to writing?\n or 3. exit the program?:\n ");
+    int response;
+    scanf("%d", &response);
+    getchar(); // Clear the newline character from the input buffer
+    switch (response) {
+        case 1:
+            mode = MENU;
+            menu();
+            return 0;
+            break;
+        case 2:
+            MODE previousMode = mode;
+            switch (previousMode) {
+                case CREATE:
+                    createFile();
+                    break;
+                case APPEND:
+                    appendToFile();
+                    break;
+                case READ:
+                    readFile();
+                    break;
+                default:
+                    printf("Unknown mode. Returning to menu.\n");
+                    menu();
+                    break;
+            }
+            break;
+        case 3:
+            printf("Exiting the program.\n");
+            return 0;
+    }
 }

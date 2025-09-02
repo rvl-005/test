@@ -1,46 +1,30 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 #include "error.h"
+#include "utils.h"
 
-void createFile(const char *filename) {
-    FILE *fptr = fopen(filename, "w");
+
+bool validateInput(char *filename) {
+    if (fgets(filename, sizeof(filename), stdin) == NULL) {
+        perror("Input error");
+        return false;
+    }
+    size_t len = strlen(filename);
+    if (len > 0 && filename[len - 1] == '\n') {
+        filename[len - 1] = '\0';
+    }
+    return true;
+}
+bool validateFile(char *filename, FILE *fptr) {
     if (fptr == NULL) {
         handleError("Error opening file.\n");
-        return;
+        return false;
     }
-    printf("Page creation complete!\n");
-    fclose(fptr);
-}
-
-void appendToFile(const char *filename) {
-    FILE *fptr = fopen(filename, "a");
-    char inputString[1000];
-    
-    if (fptr == NULL) {
-        handleError("Error opening file for appending.\n");
-        return;
-    } else {
-        printf("Please write something: \n");
-        fgets(inputString, sizeof(inputString), stdin);
-        inputString[strcspn(inputString, "\n")] = '\0';
-        fprintf(fptr, "%s\n", inputString);
-        printf("Successfully wrote to page!\n");
-        fclose(fptr);
+    if (strlen(filename) == 0) {
+        handleError("Filename cannot be empty.\n");
+        return false;
     }
-}
-
-void readFile(const char *filename) {
-    FILE *fptr = fopen(filename, "r");
-    char inputString[1000];
-
-    if (fptr == NULL) {
-        handleError("Error opening file for reading.\n");
-    } else {
-        while(fgets(inputString, sizeof(inputString), fptr)) {
-            printf("%s", inputString);
-        }
-        printf("Successfully read page!\n");
-        fclose(fptr);
-    }
+    return true;
 }
